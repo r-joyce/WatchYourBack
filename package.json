@@ -1,0 +1,37 @@
+{
+  "name": "watchyourback",
+  "version": "1.0.0",
+  "description": "small game",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "back",
+    "shooter",
+    "game",
+    "js13k",
+    "2019"
+  ],
+  "author": "Ryan Joyce",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-check-filesize": "^2.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^6.0.0",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-htmllint": "0.0.16",
+    "gulp-imagemin": "^6.1.0",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-rename": "^1.4.0",
+    "gulp-rimraf": "^1.0.0",
+    "gulp-stylelint": "^9.0.0",
+    "gulp-terser": "^1.2.0",
+    "gulp-zip": "^5.0.0",
+    "stylelint": "^10.1.0",
+    "stylelint-config-standard": "^18.3.0",
+    "tunnel-agent": "^0.6.0"
+  }
+}

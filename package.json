@@ -24,6 +24,7 @@
     "gulp-check-filesize": "^2.0.1",
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.7.0",
     "gulp-eslint": "^6.0.0",
     "gulp-html-replace": "^1.6.2",
     "gulp-htmllint": "0.0.16",

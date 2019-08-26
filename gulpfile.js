@@ -13,6 +13,7 @@ const replaceHTML = require('gulp-html-replace');
 const imagemin = require('gulp-imagemin');
 const zip = require('gulp-zip');
 const checkFileSize = require('gulp-check-filesize');
+const connect = require('gulp-connect');
 
 const paths = {
     src: {
@@ -28,6 +29,15 @@ const paths = {
         images: 'dist/images'
     }
 };
+
+gulp.task('connect', (done) => {
+	connect.server({
+		root: 'dist',
+		livereload: true,
+		port: 3000
+	});
+	done();
+});
 
 gulp.task('lintHTML', () => {
     return gulp.src('src/**.html')
@@ -59,21 +69,24 @@ gulp.task('buildHTML', () => {
             js: paths.dist.js
         }))
         .pipe(minifyHTML())
-        .pipe(gulp.dest(paths.dist.dir));
+				.pipe(gulp.dest(paths.dist.dir))
+				.pipe(connect.reload());
 });
 
 gulp.task('buildCSS', () => {
     return gulp.src(paths.src.css)
         .pipe(concat(paths.dist.css))
         .pipe(minifyCSS())
-        .pipe(gulp.dest(paths.dist.dir));
+				.pipe(gulp.dest(paths.dist.dir))
+				.pipe(connect.reload());
 });
 
 gulp.task('buildJS', () => {
     return gulp.src(paths.src.js)
         .pipe(concat(paths.dist.js))
         .pipe(minifyJS())
-        .pipe(gulp.dest(paths.dist.dir));
+				.pipe(gulp.dest(paths.dist.dir))
+				.pipe(connect.reload());
 });
 
 gulp.task('optimizeImages', () => {
@@ -114,6 +127,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', gulp.series(
-    'build',
-    'watch'
+	'build',
+	'connect',
+	'watch'
 ));

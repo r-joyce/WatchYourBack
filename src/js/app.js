@@ -1,4 +1,5 @@
 ;(function(document) {
+
     window.app = {
         nColor: 'rgb(21, 30, 30)'
     };
@@ -19,11 +20,7 @@
 		app.canvas.width = app.size.x;
         app.canvas.height = app.size.y;
 
-        reset();
-    }
-
-    function reset() {
-        
+        this.game = new Game();
     }
 
     function resize() {

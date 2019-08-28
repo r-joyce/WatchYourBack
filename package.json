@@ -4,6 +4,8 @@
   "description": "small game",
   "main": "index.html",
   "scripts": {
+    "start": "parcel src/index.html --hmr-port 3000",
+    "build": "NODE_ENV=production parcel build src/index.html --no-source-maps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +22,8 @@
   "author": "Ryan Joyce",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "gulp": "^4.0.2",
     "gulp-check-filesize": "^2.0.1",
     "gulp-clean-css": "^4.2.0",
@@ -35,6 +39,8 @@
     "gulp-stylelint": "^9.0.0",
     "gulp-terser": "^1.2.0",
     "gulp-zip": "^5.0.0",
+    "kontra": "^6.4.0",
+    "parcel-bundler": "^1.12.3",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "tunnel-agent": "^0.6.0"

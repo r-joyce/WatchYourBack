@@ -1,3 +1,5 @@
+import Game from './game';
+
 ;(function(document) {
 
     window.app = {

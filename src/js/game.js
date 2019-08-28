@@ -1,45 +1,46 @@
-class Game {
-    constructor() {
-        kontra.init();
-        kontra.initKeys();
-        this.sprites = [];
-        this.player = new Player();
-        this.sprites.push(this.player);
-        this.loop = this.SetupGameLoop();
-    }
+import Player from './player';
+import { init, GameLoop } from 'kontra';
 
-    SetupGameLoop() {
-        let loop = kontra.GameLoop({
-            update() {
-                let canvas = kontra.getCanvas();
-                
-                this.sprites.map(sprite => {
-                    sprite.update();
+let { canvas } = init();
+let sprites = [];
 
-                    if (sprite.x < 0) {
-                        sprite.x = 0;
-                    } else if (sprite.x > canvas.width) {
-                        sprite.x = canvas.width;
-                    }
+export default class Game {
+	constructor() {
+			this.player = new Player();
+			sprites.push(this.player);
+			this.loop = this.SetupGameLoop();
+	}
 
-                    if (sprite.y < 0) {
-                        sprite.y = 0;
-                    } else if (sprite.y > canvas.height) {
-                        sprite.y = canvas.height;
-                    }
-                });
+	SetupGameLoop() {
+		let loop = GameLoop({
+				update() {                
+					sprites.map(sprite => {
+							sprite.update();
 
-                this.sprites = this.sprites.filter(sprite => sprite.isAlive());
-            },
-            render() {
-                this.sprites.map(sprite => sprite.render());
-            }
-        });
-        loop.start();
-        return loop;
-    }
+							if (sprite.x < 0) {
+									sprite.x = 0;
+							} else if (sprite.x > canvas.width) {
+									sprite.x = canvas.width;
+							}
 
-    Reset() {
-        
-    }
+							if (sprite.y < 0) {
+									sprite.y = 0;
+							} else if (sprite.y > canvas.height) {
+									sprite.y = canvas.height;
+							}
+					});
+
+					sprites = sprites.filter(sprite => sprite.isAlive());
+				},
+				render() {
+					sprites.map(sprite => sprite.render());
+				}
+		});
+		loop.start();
+		return loop;
+	}
+
+	Reset() {
+			
+	}
 }

@@ -1,6 +1,8 @@
-class Player {
+import { Sprite } from 'kontra';
+ 
+export default class Player {
     constructor() {
-        return kontra.Sprite({
+        return Sprite({
             type: 'player',
             x: 100,
             y: 100,

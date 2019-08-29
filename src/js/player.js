@@ -1,13 +1,14 @@
-import { Sprite, initKeys, keyPressed } from 'kontra';
-
-initKeys();
+import { Sprite, initKeys, initPointer, pointer, keyPressed, pointerPressed } from 'kontra';
 
 export default class Player {
-    constructor() {
+    constructor(sprites) {
+        initKeys();
+        initPointer();
         return Sprite({
             type: 'player',
             x: 100,
             y: 100,
+            dt: 0,
             radius: 3,
             render() {
                 this.context.save();
@@ -19,24 +20,52 @@ export default class Player {
                 this.context.restore();
             },
             update() {
-                if (keyPressed('w')) {
+                if (keyPressed('w') || keyPressed('up')) {
                     this.y -= 1;
                 }
                 
-                if (keyPressed('a')) {
+                if (keyPressed('a') || keyPressed('left')) {
                     this.x -= 1;
                 }
                 
-                if (keyPressed('s')) {
+                if (keyPressed('s') || keyPressed('down')) {
                     this.y += 1;
                 }
                 
-                if (keyPressed('d')) {
+                if (keyPressed('d') || keyPressed('right')) {
                     this.x += 1;
                 }
 
                 this.advance();
+
+                // allow the player to fire no more than 1 bullet every 1/4 second
+                this.dt += 1/60;
+                if (keyPressed('space') || pointerPressed('left')) {
+                    if (this.dt > 0.25) {
+                        this.dt = 0;
+                        // console.log(Math.atan2(this.x, pointer.y));
+                        // console.log(Math.atan2(this.y, pointer.x));
+                        let bullet = Sprite({
+                            type: 'bullet',
+                            x: this.x,
+                            y: this.y,
+                            dx: 20, //Math.atan2(this.x, pointer.y) * 5,
+                            dy: 20, //Math.atan2(this.y, pointer.x) * 5,
+                            ttl: 50,
+                            width: 2,
+                            height: 2,
+                            color: 'white'
+                        });
+                        sprites.push(bullet);
+                        console.log('fire: ' + sprites);
+                    }
+                }
             }
         });
+    }
+
+    // helper function to convert degrees to radians
+    degreesToRadians(degrees) {
+        return degrees * Math.PI / 180;
     }
 }

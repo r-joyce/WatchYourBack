@@ -53,7 +53,7 @@ export default class Player {
                     this.x += 1;
                 }
 
-                if (keyPressed('shift'))
+    
 
                 this.advance();
 

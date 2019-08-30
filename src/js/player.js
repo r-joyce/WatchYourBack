@@ -1,5 +1,4 @@
-import { Sprite, initKeys, initPointer, pointer, keyPressed, pointerPressed } from 'kontra';
-
+import { Sprite, initKeys, initPointer, keyPressed, pointerPressed } from 'kontra';
 
 let mouse = {
     x:0,
@@ -8,13 +7,9 @@ let mouse = {
 const setMouse = (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-    console.log(mouse);
 }
 
 document.addEventListener('mousemove', setMouse);
-
-
-
 
 export default class Player {
     constructor(addSprite) {
@@ -30,7 +25,6 @@ export default class Player {
             render() {
                 this.context.save();
                 this.context.strokeStyle = 'white';
-                // this.context.translate(this.x, this.y);
                 this.context.beginPath();  // start drawing a shape
                 this.context.arc(this.x, this.y, this.radius, 0, Math.PI*2);
                 this.context.stroke();     // outline the circle
@@ -53,8 +47,6 @@ export default class Player {
                     this.x += 1;
                 }
 
-    
-
                 this.advance();
 
                 // allow the player to fire no more than 1 bullet every 1/4 second
@@ -62,14 +54,12 @@ export default class Player {
                 if (keyPressed('space') || pointerPressed('left')) {
                     if (this.dt > 0.25) {
                         this.dt = 0;
-                        // console.log(Math.atan2(this.x, pointer.y));
-                        // console.log(Math.atan2(this.y, pointer.x));
                         let bullet = Sprite({
                             type: 'bullet',
                             x: this.x,
                             y: this.y,
-                            dx: (mouse.x - this.x) *.5 , //Math.atan2(this.x, pointer.y) * 5,
-                            dy: (mouse.y - this.y) *.5, //Math.atan2(this.y, pointer.x) * 5,
+                            dx: (mouse.x - this.x) *.25,
+                            dy: (mouse.y - this.y) *.25,
                             ttl: 50,
                             width: 2,
                             height: 2,
@@ -80,10 +70,5 @@ export default class Player {
                 }
             }
         });
-    }
-
-    // helper function to convert degrees to radians
-    degreesToRadians(degrees) {
-        return degrees * Math.PI / 180;
     }
 }

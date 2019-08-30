@@ -34,9 +34,14 @@ export default class Game {
 					}
 				});
 
-				 sprites = sprites.filter(sprite => sprite.isAlive());
+				sprites = sprites.filter(sprite => sprite.isAlive());
 			
-				console.log(sprites)
+				// Collision detection
+				sprites.forEach(sprite => {
+					if (sprite.type === 'bullet') {
+
+					}
+				});
 			},
 			render() {
 				sprites.forEach(sprite => sprite.render());

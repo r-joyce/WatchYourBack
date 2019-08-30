@@ -1,7 +1,23 @@
 import { Sprite, initKeys, initPointer, pointer, keyPressed, pointerPressed } from 'kontra';
 
+
+let mouse = {
+    x:0,
+    y:0
+}
+const setMouse = (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    console.log(mouse);
+}
+
+document.addEventListener('mousemove', setMouse);
+
+
+
+
 export default class Player {
-    constructor(sprites) {
+    constructor(addSprite) {
         initKeys();
         initPointer();
         return Sprite({
@@ -10,10 +26,11 @@ export default class Player {
             y: 100,
             dt: 0,
             radius: 3,
+            rotation: 0,  // 0 degrees is to the right
             render() {
                 this.context.save();
                 this.context.strokeStyle = 'white';
-                this.context.translate(this.x, this.y);
+                // this.context.translate(this.x, this.y);
                 this.context.beginPath();  // start drawing a shape
                 this.context.arc(this.x, this.y, this.radius, 0, Math.PI*2);
                 this.context.stroke();     // outline the circle
@@ -36,6 +53,8 @@ export default class Player {
                     this.x += 1;
                 }
 
+                if (keyPressed('shift'))
+
                 this.advance();
 
                 // allow the player to fire no more than 1 bullet every 1/4 second
@@ -49,15 +68,14 @@ export default class Player {
                             type: 'bullet',
                             x: this.x,
                             y: this.y,
-                            dx: 20, //Math.atan2(this.x, pointer.y) * 5,
-                            dy: 20, //Math.atan2(this.y, pointer.x) * 5,
+                            dx: (mouse.x - this.x) *.5 , //Math.atan2(this.x, pointer.y) * 5,
+                            dy: (mouse.y - this.y) *.5, //Math.atan2(this.y, pointer.x) * 5,
                             ttl: 50,
                             width: 2,
                             height: 2,
                             color: 'white'
                         });
-                        sprites.push(bullet);
-                        console.log('fire: ' + sprites);
+                        addSprite(bullet);
                     }
                 }
             }

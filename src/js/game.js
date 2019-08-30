@@ -5,10 +5,12 @@ let { canvas } = init();
 let sprites = [];
 let dt = 0;
 
+const addSprite = (sprite) => sprites.push(sprite);
+
 export default class Game {
 	constructor() {
-		this.player = new Player(sprites);
-		sprites.push(this.player);
+		this.player = new Player(addSprite);
+		addSprite(this.player);
 		this.loop = this.SetupGameLoop();
 	}
 
@@ -16,7 +18,7 @@ export default class Game {
 		let loop = GameLoop({
 			update() {
 				dt += 1/60;
-				sprites.map(sprite => {
+				sprites.forEach(sprite => {
 					sprite.update();
 
 					if (sprite.x < 0) {
@@ -32,15 +34,12 @@ export default class Game {
 					}
 				});
 
-				sprites = sprites.filter(sprite => sprite.isAlive());
-				
-				if (dt > 5) {
-					dt = 0;
-					console.log(sprites);
-				}
+				 sprites = sprites.filter(sprite => sprite.isAlive());
+			
+				console.log(sprites)
 			},
 			render() {
-				sprites.map(sprite => sprite.render());
+				sprites.forEach(sprite => sprite.render());
 			}
 		});
 		loop.start();

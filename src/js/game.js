@@ -36,26 +36,38 @@ export default class Game {
 				});
 
 				// Add enemies every 5 seconds
-				if (dt > 5) {
+				// if (dt > 5) {
 					// dt = 0;
 					addSprite(new Zombie());
-				}
+				// }
 
 				sprites = sprites.filter(sprite => sprite.isAlive());
 			
 				// Collision detection
-				sprites.forEach(bullet => {
-					if (bullet.type === 'bullet') {
+				sprites.forEach(thing => {
+					if (thing.type === 'bullet') {
 						sprites.forEach(z => {
 							if (z.type === 'zombie') {
-								let dx = bullet.x - z.x;
-								let dy = bullet.y - z.y;
+								let dx = thing.x - z.x;
+								let dy = thing.y - z.y;
 								// TODO: This check needs to be adjusted, doesn't detect often enough to be accurate
-								if (Math.sqrt(dx * dx + dy * dy) < bullet.width + z.radius) {
-									bullet.ttl = 0;
+								if (Math.sqrt(dx * dx + dy * dy) < thing.width + z.radius) {
+									thing.ttl = 0;
 									z.ttl = 0;
-									console.log('gottem');
 									// TODO: Increment score
+								}
+							}
+						});
+					} else if (thing.type === 'player') {
+						sprites.forEach(z => {
+							if (z.type === 'zombie') {
+								let dx = thing.x - z.x;
+								let dy = thing.y - z.y;
+								if (Math.sqrt(dx * dx + dy * dy) < thing.width + z.radius) {
+									console.log('ded');
+									thing.ttl = 0;
+									z.ttl = 0;
+									// TODO: game over
 								}
 							}
 						});

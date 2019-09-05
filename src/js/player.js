@@ -4,6 +4,7 @@ let mouse = {
     x:0,
     y:0
 }
+
 const setMouse = (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
@@ -20,7 +21,7 @@ export default class Player {
             x: 100,
             y: 100,
             dt: 0,
-            radius: 3,
+            radius: 6,
             rotation: 0,  // 0 degrees is to the right
             render() {
                 this.context.save();
@@ -58,12 +59,12 @@ export default class Player {
                             type: 'bullet',
                             x: this.x,
                             y: this.y,
-                            dx: (mouse.x - this.x) *.1,
-                            dy: (mouse.y - this.y) *.1,
-                            ttl: 50,
+                            dx: (mouse.x - this.x) *.05,
+                            dy: (mouse.y - this.y) *.05,
+                            ttl: 60,
                             width: 2,
                             height: 2,
-                            color: 'white'
+                            color: 'yellow'
                         });
                         addSprite(bullet);
                     }

@@ -7,7 +7,7 @@ export default class Zombie {
             x: 200,
             y: 300,
             dt: 0,
-            radius: 3,
+            radius: 6,
             rotation: 0,  // 0 degrees is to the right
             render() {
                 this.context.save();

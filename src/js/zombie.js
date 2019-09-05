@@ -1,11 +1,12 @@
-import { Sprite } from 'kontra';
+import { getCanvas, Sprite } from 'kontra';
 
 export default class Zombie {
     constructor() {
+        let canvas = getCanvas();
         return Sprite({
             type: 'zombie',
-            x: 200,
-            y: 300,
+            x: Math.floor((Math.random() * canvas.width) + 1),
+            y: Math.floor((Math.random() * canvas.height) + 1),
             dt: 0,
             radius: 6,
             rotation: 0,  // 0 degrees is to the right

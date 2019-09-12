@@ -6,6 +6,8 @@ let { canvas } = init();
 let sprites = [];
 let dt = 0;
 let score = 0;
+let viewDistance = 250;
+let maxZombies = 0;
 
 const addSprite = (sprite) => sprites.push(sprite);
 
@@ -44,8 +46,8 @@ export default class Game {
 				if (dt > Math.floor((Math.random() * 7) + 1)) {
 					dt = 0;
 
-					// Only ever allow 16 zombies to be at play, at a time
-					if (sprites.filter(sprite => sprite.type === 'zombie').length < 16) {
+					// Only ever allow a set number of zombies to be at play, at a time
+					if (sprites.filter(sprite => sprite.type === 'zombie').length < maxZombies) {
 						addSprite(new Zombie(sprites.find(s => s.type === 'player')));
 					}
 				}
@@ -66,23 +68,32 @@ export default class Game {
 							}
 						});
 					} else if (thing.type === 'player') {
-						sprites.forEach(z => {
-							if (z.type === 'zombie') {
+						sprites.filter(sprite => sprite.type === 'zombie').forEach(z => {
+						// sprites.forEach(z => {
+							// if (z.type === 'zombie') {
 								let dx = thing.x - z.x;
 								let dy = thing.y - z.y;
 								if (Math.sqrt(dx * dx + dy * dy) < thing.width + z.radius) {
 									thing.ttl = 0;
 									z.ttl = 0;
-									console.log(score);
+									console.log('Score: ' + score);
 									// TODO: game over
 								}
-							}
+							// }
 						});
 					}
 				});
 			},
 			render() {
-				sprites.forEach(sprite => sprite.render());
+				let player = sprites.find(s => s.type === 'player');
+				if (player != null) {
+					player.render();
+					sprites.filter(sprite => sprite.type != 'player').forEach(sprite => {
+						if (Math.abs(player.x - sprite.x) < viewDistance) {
+							sprite.render();
+						}
+					});
+				}
 			}
 		});
 		loop.start();

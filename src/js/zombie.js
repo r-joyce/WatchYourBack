@@ -24,18 +24,23 @@ export default class Zombie {
                 this.dt += 1/60;
 
                 // Delay chsing the player for a second
-                if (this.dt > 1) {
-                    if (player.x > this.x) {
-                        this.dx = 1.5;
-                    } else {
-                        this.dx = -1.5;
-                    }
+                if (player != null) {
+                    if (this.dt > 1) {
+                        if (player.x > this.x) {
+                            this.dx = 1.5;
+                        } else {
+                            this.dx = -1.5;
+                        }
 
-                    if (player.y > this.y) {
-                        this.dy = 1.5;
-                    } else {
-                        this.dy = -1.5;
+                        if (player.y > this.y) {
+                            this.dy = 1.5;
+                        } else {
+                            this.dy = -1.5;
+                        }
                     }
+                } else {
+                    this.dx = 0;
+                    this.dy = 0;
                 }
 
                 this.advance();
